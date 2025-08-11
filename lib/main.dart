@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+// Pages
 import 'pages/login_page.dart';
-import 'pages/signup_page.dart';
+import 'pages/signup_user_page.dart';
+import 'pages/signup_shop_page.dart';
+import 'pages/user_home_page.dart';
+import 'pages/shop_home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +28,16 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.brown[50],
         fontFamily: 'Roboto',
       ),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/login': (context) => const LoginPage(),
+        '/signup-user': (context) => const CustomerSignUpPage(),
+        '/signup-shop': (context) => const ShopOwnerSignupPage(),
+        '/userhome': (context) => const UserHomePage(),
+        '/shophome': (context) => const ShopHomePage(),
+      },
     );
   }
 }
@@ -41,19 +55,12 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Coffee Icon
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 50,
-                  backgroundColor: const Color.fromARGB(255, 93, 45, 29),
-                  child: const Icon(
-                    Icons.coffee,
-                    size: 60,
-                    color: Colors.white,
-                  ),
+                  backgroundColor: Color.fromARGB(255, 93, 45, 29),
+                  child: Icon(Icons.coffee, size: 60, color: Colors.white),
                 ),
                 const SizedBox(height: 20),
-
-                // Title
                 const Text(
                   "Coffee Buddy",
                   style: TextStyle(
@@ -63,8 +70,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-
-                // Subtitle
                 Text(
                   "Brew connections over coffee ☕",
                   style: TextStyle(fontSize: 16, color: Colors.brown[600]),
@@ -72,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
 
-                // Login Button
+                // Login button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.brown,
@@ -82,19 +87,12 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                    );
-                  },
+                  onPressed: () => Navigator.pushNamed(context, '/login'),
                   child: const Text("Log In", style: TextStyle(fontSize: 18)),
                 ),
                 const SizedBox(height: 15),
 
-                // Sign Up Button
+                // Sign Up button
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.brown),
@@ -105,28 +103,55 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignupPage(),
-                      ),
-                    );
+                    _showSignupOptions(context);
                   },
                   child: const Text("Sign Up", style: TextStyle(fontSize: 18)),
-                ),
-                const SizedBox(height: 30),
-
-                // Footer Text
-                Text(
-                  "Enjoy your coffee journey with friends.",
-                  style: TextStyle(color: Colors.brown[500]),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  void _showSignupOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Choose Account Type",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              ListTile(
+                leading: const Icon(Icons.person, color: Colors.brown),
+                title: const Text("Customer"),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/signup-user');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.store, color: Colors.brown),
+                title: const Text("Shop Owner"),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, '/signup-shop');
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
