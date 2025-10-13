@@ -1,48 +1,92 @@
-# ☕ CoffeeBuddy (Flutter)
+# ☕ CoffeeBuddy
 
-CoffeeBuddy is a **Flutter-based coffee ordering app** currently in its **early development stage**.  
-At present, it includes the **landing page**, **user authentication**, and **shop owner authentication** (login/signup).  
+> A modern Flutter app for discovering and managing coffee — built with Firebase and Flutter.
+
+![Flutter](https://img.shields.io/badge/Flutter-Framework-blue?logo=flutter)
+![Firebase](https://img.shields.io/badge/Firebase-Backend-orange?logo=firebase)
+![Dart](https://img.shields.io/badge/Dart-Language-blue?logo=dart)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 
 ---
 
-## 🚀 Current Progress
-- 📱 Landing page UI  
-- 👤 User login & signup  
-- 🏪 Shop owner login & signup  
+## 🌟 Overview
+**CoffeeBuddy** is a Flutter-based cross-platform app designed to streamline the coffee experience for both **customers** and **shop owners**.  
+Users can explore coffee varieties, while shop owners can manage their menus and store details with ease.  
+
+Currently, the app includes:
+- Landing page UI  
+- User authentication (login/signup)  
+- Shop owner authentication (login/signup)
+
+---
+
+## 🚀 Features
+
+### ✅ Current
+- 📱 Modern landing page UI  
+- 👤 User registration & authentication  
+- 🏪 Shop owner registration & authentication  
+
+### 🧭 Roadmap (Upcoming)
+- ☕ Coffee shop listing & browsing  
+- 🧾 Product selection with customization  
+- 🛒 Cart and checkout flow  
+- 🚚 Order tracking system  
+- 🔥 Firebase integration (Auth, Firestore, Storage)  
+- 💳 Payment gateway integration  
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: Flutter (Dart)  
-- **Backend**: Firebase (Auth planned)  
-- **Platform**: Android, iOS, Web (planned)  
+| Component | Technology |
+|------------|-------------|
+| **Frontend** | Flutter (Dart) |
+| **Backend** | Firebase (Auth, Firestore, Storage) |
+| **Platforms** | Android, iOS, Web (planned) |
 
 ---
 
-## 📂 Project Structure
 coffee-buddy/
-├── lib/ # Main Flutter app code
-├── assets/ # Images, icons
-├── android/ # Android-specific files
-├── ios/ # iOS-specific files
-├── web/ # Web build files (if enabled)
-├── pubspec.yaml # Dependencies
-└── README.md
+├── lib/ # Core Flutter app code
+├── assets/ # Images, icons, and other static files
+├── android/ # Android-specific configurations
+├── ios/ # iOS-specific configurations
+├── web/ # Web build files (optional)
+├── pubspec.yaml # Project dependencies
+└── README.md # Project documentation
 
 
-📌 Roadmap (Planned Features)
-Coffee shop listing & browsing
 
-Product selection with customization
+---
 
-Cart & checkout flow
+## ⚙️ Getting Started
 
-Order tracking
+### Prerequisites
+Make sure you have the following installed:
+- [Flutter SDK](https://flutter.dev/docs/get-started/install)
+- [Dart SDK](https://dart.dev/get-dart)
+- A connected Firebase project (optional for initial setup)
 
-Firebase backend integration (Auth, Firestore, Storage)
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/kozhukkatta/CoffeeBuddy.git
 
-Payment gateway integration
+# Navigate into the project folder
+cd CoffeeBuddy
+
+# Install dependencies
+flutter pub get
+
+# Run the app
+flutter run
+
 
 📬 Contact
-Project by: Pauljo George
-Email: pauljogeorge45@gmail.com
+
+Developer: Pauljo George
+📧 Email: pauljogeorge45@gmail.com
+
+🔗 GitHub: @kozhukkatta
+
+## 📂 Project Structure
