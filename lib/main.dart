@@ -1,13 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 // Pages
+//user pages
 import 'pages/login_page.dart';
 import 'pages/signup_user_page.dart';
-import 'pages/signup_shop_page.dart';
 import 'pages/user_home_page.dart';
+import 'pages/user_profile.dart';
+import 'pages/view_book_user.dart';
+import 'pages/add_feedback_user.dart';
+import 'pages/view_feedback_user.dart';
+import 'pages/view_payment_user.dart';
+// shop owner pages
+import 'pages/signup_shop_page.dart';
 import 'pages/shop_home_page.dart';
+import 'pages/add_coffee.dart';
+import 'pages/view_book_owner.dart';
+import 'pages/view_payment_owner.dart';
+import 'pages/view_coffee_flavour_owner.dart';
+import 'pages/view_feedback_owner.dart';
+import 'pages/owner_profile.dart';
+// admin pages
+import 'pages/admin_home_page.dart';
+import 'pages/verify_coffee_shop.dart';
+import 'pages/view_coffee_shop.dart';
+import 'pages/view_payment_admin.dart';
+import 'pages/view_book_admin.dart';
+import 'pages/view_feedback_admin.dart';
+//
+import 'pages/view_coffee_flavour.dart';
+import 'pages/ShopDetailsPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,15 +55,99 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/': (context) => const LoadingScreen(), // Start with loader
         '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginPage(),
+        //user pages
         '/signup-user': (context) => const CustomerSignUpPage(),
-        '/signup-shop': (context) => const ShopOwnerSignupPage(),
         '/userhome': (context) => const UserHomePage(),
+        '/userprofile': (context) => const UserProfilePage(),
+        '/userviewbook': (context) => const UserViewBookPage(),
+        '/userviewfeedback': (context) => const UserViewFeedbackPage(),
+        '/addfeedbackuser': (context) => const AddFeedbackUserPage(),
+        '/userviewpayment': (context) => const UserViewPaymentPage(),
+        //shop owner pages
+        '/signup-shop': (context) => const ShopOwnerSignupPage(),
         '/shophome': (context) => const ShopHomePage(),
+        '/ownerviewbook': (context) => const OwnerViewBookPage(),
+        '/ownerviewpayment': (context) => const OwnerViewPaymentPage(),
+        '/addcoffee': (context) => const AddCoffeePage(),
+        '/viewcoffeeflavourowner': (context) =>
+            const ViewCoffeeFlavourOwnerPage(),
+        // add owner view history
+        '/ownerviewfeedback': (context) => const OwnerViewFeedbackPage(),
+        '/ownerprofile': (context) => const ShopOwnerProfilePage(),
+        //admin pages
+        '/adminhome': (context) => const AdminHomePage(),
+        '/verifycoffeeshop': (context) => const VerifyCoffeeShopPage(),
+        '/viewcoffeeshop': (context) => const ViewCoffeeShopPage(),
+        '/adminviewpayment': (context) => const AdminViewPaymentPage(),
+        '/adminviewbook': (context) => const AdminViewBookPage(),
+        '/adminviewfeedback': (context) => const AdminViewFeedbackPage(),
+        //
+        '/viewcoffeeflavour': (context) => const ViewCoffeeFlavourPage(),
+        '/shop-details': (context) {
+          final args =
+              ModalRoute.of(context)?.settings.arguments
+                  as QueryDocumentSnapshot?;
+          return ShopDetailsPage(shopData: args!);
+        },
       },
     );
+  }
+}
+
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({super.key});
+
+  @override
+  State<LoadingScreen> createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    // Wait a brief moment to let Firebase restore the session
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // No user logged in → go to login
+      Navigator.pushReplacementNamed(context, '/login');
+      return;
+    }
+
+    // User logged in → fetch their role (user/shop/admin)
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    if (!doc.exists) {
+      Navigator.pushReplacementNamed(context, '/login');
+      return;
+    }
+
+    final role = doc.data()?['role'] ?? 'user';
+
+    if (role == 'shop') {
+      Navigator.pushReplacementNamed(context, '/shophome');
+    } else if (role == 'admin') {
+      Navigator.pushReplacementNamed(context, '/adminhome');
+    } else {
+      Navigator.pushReplacementNamed(context, '/userhome');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
 
@@ -87,7 +196,8 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () => Navigator.pushNamed(context, '/login'),
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, '/login'),
                   child: const Text("Log In", style: TextStyle(fontSize: 18)),
                 ),
                 const SizedBox(height: 15),

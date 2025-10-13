@@ -56,9 +56,20 @@ class _ShopOwnerSignupPageState extends State<ShopOwnerSignupPage> {
           'address': _addressController.text.trim(),
           'licenseNumber': _licenseController.text.trim(),
           'createdAt': FieldValue.serverTimestamp(),
+          'isVerified': false, // Admin must set this to true later
         });
 
-        Navigator.pushReplacementNamed(context, "/home");
+        // Show verification message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Signup successful! Please wait for admin verification before login.",
+            ),
+          ),
+        );
+
+        // Redirect to login (not home, since not verified yet)
+        Navigator.pushReplacementNamed(context, "/login");
       }
     } catch (e) {
       ScaffoldMessenger.of(
