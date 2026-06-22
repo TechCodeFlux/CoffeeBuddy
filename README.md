@@ -1,4 +1,5 @@
-<img width="1456" height="720" alt="Gemini_Generated_Image_j5x77uj5x77uj5x7" src="https://github.com/user-attachments/assets/8d963137-75bd-4827-9c76-20422a1e32d5" />
+<img width="1456" height="720" alt="coffeebuddy" src="https://github.com/user-attachments/assets/368cc453-9a0b-4f0e-b71c-3c4a1a5fa86d" />
+
 
 # ☕ CoffeeBuddy
 
