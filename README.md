@@ -1,3 +1,5 @@
+<img width="716" height="1600" alt="WhatsApp Image 2026-06-22 at 16 01 46" src="https://github.com/user-attachments/assets/43fa418d-a90e-4274-9318-3934e5f72004" />
+
 # ☕ CoffeeBuddy
 
 > A modern Flutter app for discovering and managing coffee — built with Firebase and Flutter.
