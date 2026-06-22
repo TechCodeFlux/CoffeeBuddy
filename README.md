@@ -1,4 +1,4 @@
-<img width="716" height="1600" alt="WhatsApp Image 2026-06-22 at 16 01 46" src="https://github.com/user-attachments/assets/43fa418d-a90e-4274-9318-3934e5f72004" />
+<img width="716" height="874" alt="Coffeebuddy" src="https://github.com/user-attachments/assets/9bc134e5-0a62-4e0f-9084-5ba68bac6c61" />
 
 # ☕ CoffeeBuddy
 
